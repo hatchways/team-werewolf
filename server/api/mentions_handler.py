@@ -15,7 +15,7 @@ def mentions():
         password=os.getenv('PASSWORD'),
         server=os.getenv('DB_SERVER')
     ))
-    db = client['team-werewolf']
+    db = client[os.getenv('DB_NAME')]
     mentions_collection = db.mentions
     # this POST functionality is just to load some data for testing
     if request.method == 'POST':
