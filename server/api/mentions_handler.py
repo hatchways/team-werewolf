@@ -3,7 +3,7 @@ from datetime import datetime
 from pymongo import MongoClient
 from bson import json_util
 import json
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request
 mentions_handler = Blueprint('mentions_handler', __name__)
 
 
@@ -27,10 +27,10 @@ def mentions():
             'date': datetime.now(),
             'popularity': 1
         })
-        return str(result.inserted_id)
+        return {'insertedId': str(result.inserted_id)}
     elif request.method == 'DELETE':
         result = mentions_collection.delete_many({})
-        return jsonify({'documentsDeleted': result.deleted_count})
+        return {'documentsDeleted': result.deleted_count}
     elif request.method == 'GET':
         mentions = []
         for mention in mentions_collection.find():
